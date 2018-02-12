@@ -1,0 +1,28 @@
+{% extends 'reservasBundle:Admin:layout.html.twig' %}
+{% block content %}
+<main class="valign-wrapper paddingTop2">
+<div class="row">
+  <header class="col s12">
+      <h1 class="center-align">Añadir a la Lista Negra <a href="/admin/listados"><i class="material-icons btn-floating">close</i></a></h1>
+  </header>
+
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content sinPaddingBot">
+        <form class="paddingTop1" action="/admin/listanegra/add" method="post">
+            <div class="row">
+              <div class="col s12">
+                  <label class="labelEst center">Correo</label>
+                  <input class="inputEst center-align sinPadding" type="email" placeholder="email@email.es" name="correo" value="">
+              </div>
+              <div class="col s12 center-align marginBot">
+                <input type="submit" class="button especial" name="add" value="Añadir">
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock %}

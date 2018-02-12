@@ -1,0 +1,73 @@
+{% extends 'reservasBundle:Admin:layout.html.twig' %}
+{% block content %}
+<main class="valign-wrapper paddingTop2">
+<div class="row">
+  <header class="col s12">
+      <h1 class="center-align">Editar Reserva <a href="/admin/servicios"><i class="material-icons btn-floating">close</i></a></h1>
+  </header>
+
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content paddingTop1">
+              <form class="" action="/admin/reservas/editar/{{reserva.idreservas}}" method="post">
+                <div class="row">
+                  <div class="col s12 l3">
+                      <label for="">Nombre</label>
+                      <input class="inputEst" type="text" name="nombre" value="{{reserva.nombre}}" required>
+                  </div>
+
+                  <div class="col s12 l3">
+                      <label for="">Apellidos</label>
+                      <input class="inputEst" type="text" name="apellidos" value="{{reserva.apellidos}}" required>
+                  </div>
+                  <div class="col s12 l3">
+                      <label for="">Correo</label>
+                      <input class="inputEst" type="text" name="correo" value="{{reserva.correo}}" required>
+                  </div>
+                  <div class="col s12 l3">
+                      <label for="">Telefono</label>
+                      <input class="inputEst" type="text" name="telefono" value="{{reserva.telefono}}" required>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col s12 l6">
+                    <label for="">Observaciones</label>
+                    <textarea class="textareaEst" name="observaciones" rows="8" cols="80">{{reserva.observaciones}}</textarea>
+                </div>
+                <div class="col s12 l6">
+                    <label class="comoH3">Estado de la reserva</label>
+                    <select name="estado">
+                      {% for estado in estadosreserva %}
+                          <option value="{{estado.idestadoreserva}}">{{estado.nombre}}</option>
+                      {% endfor %}
+
+                    </select>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col s12 comoH3 marginBot">Alérgenos</label>
+                {% for alergeno in alergenos %}
+                      {% set checked = "" %}
+                      {% for malergeno in myalergenos %}
+                          {% if alergeno.nombre == malergeno.alergenosalergenos.nombre %}
+                            {% set checked = "checked" %}
+                          {% endif %}
+                      {% endfor %}
+                      <div class="col s12 l2">
+                        <input type="checkbox" class="filled-in" name="alergenos[]" id="{{alergeno.nombre}}" value="{{alergeno.nombre}}" {{checked}}>
+                        <label for="{{alergeno.nombre}}">{{alergeno.nombre}}</label>
+                      </div>
+                {% endfor %}
+              </div>
+
+              <div class="center-align">
+                <input type="submit" class="button especial" name="guardar" value="Guardar">
+              </div>
+              </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</main>
+{% endblock %}

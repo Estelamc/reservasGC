@@ -1,0 +1,173 @@
+main{
+  *background-color: #4a4a4a !important;
+	*background-image: url("../img/fondoAdmin.jpg");
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255 ,255, 255, 0.2)), url(../img/fondoAdmin.jpg);
+  background-position: right;
+  *background-repeat: no-repeat;
+}
+
+.grande{
+  font-size: 1.5em;
+}
+
+h1, h1 .material-icons, #titularTabla, .titularCard{
+  color: white;
+}
+
+nav{
+  position: fixed;
+  z-index: 999 !important;
+}
+
+.marginTop{
+  margin-top: 2em !important;
+}
+
+.marginBot{
+  margin-bottom: 0.7em !important;
+}
+
+.material-icons{
+  transition: 1s all;
+}
+
+.material-icons:hover{
+  transform:scale(1.3);
+}
+
+#navTitulo{
+  display: none;
+}
+
+#partesBoletin li, #partesBoletin a{
+  padding: 0.5em;
+  background-color: #333;
+  color: #D4CDC5 !important;
+  transition: 1s all;
+}
+
+#partesBoletin li:hover, #partesBoletin li:hover a{
+  background-color: grey !important;
+}
+
+#partesBoletin{
+  border: none !important;
+}
+
+.parteBActiva{
+  color: #439BB4 !important;
+  border-color: #439BB4 !important;
+}
+
+.collection .collection-item {
+  border-bottom: 2px solid #D4CDC5 !important;
+}
+
+.altoFijo{
+  min-height: 5em !important;
+}
+
+table{
+  font-size: 1.3em !important;
+  margin-bottom: 0;
+}
+
+th, td{
+  border-radius: 0 !important;
+}
+
+.tarjetaReserva{
+  padding-top: 1em !important;
+}
+
+#titularTabla, .titularCard{
+  background-color: #4a4a4a;
+}
+
+
+/* MANUAL USUARIO */
+
+#listadoEst{
+  border-radius: 0.2em !important;
+}
+
+#listadoEst i{
+  background-color: #624A4D;
+}
+
+#listadoEst .collection-header{
+  background-color: #624A4D;
+  color: white;
+  text-align: center;
+}
+
+#listadoEst .title{
+  font-weight: bold;
+}
+
+#colMala{
+  background: rgba(255,255,255,0.5);
+}
+
+label.comoH3.labelEst.active {
+    color: #534941 !important;
+}
+
+
+ul#mobile-demo {
+    background: #D9D2C0;
+}
+
+.correoEst td{
+  font-size: 0.39em;
+}
+
+.iconosServ{
+  font-size: 2em;
+}
+
+.columnasServ{
+  font-size: 0.5em;
+}
+
+#arch{
+  border: 3px solid #26a69a;
+  background-color: #26a69a3b;
+  border-radius: 0.2em;
+  font-size: 1.1em !important;
+  padding: 1em;
+}
+
+td a img{
+  max-width: 7em;
+}
+
+
+@media screen and (min-width:602px){
+  .correoEst td{
+    font-size: 0.5em;
+  }
+
+  .columnasServ{
+    font-size: 0.65em;
+  }
+
+  #colMala{
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width:994px){
+  table{
+    font-size: 1em !important;
+  }
+
+  .correoEst td, .columnasServ{
+    font-size: 1em;
+  }
+
+  #navTitulo{
+    display: inline-block;
+  }
+}

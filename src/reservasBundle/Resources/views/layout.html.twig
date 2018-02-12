@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Restaurante IES Gran Capitán</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Iconos de FONTAWESOME -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Iconos de MATERIALIZE -->
+    <!-- MATERIALIZE CSS Framework -->
+    <link rel="stylesheet" type="text/css" href="{{asset('bundles/reservas/css/materialize.css')}}">
+    <!-- NUESTRO ESTILO -->
+    <link rel="stylesheet" type="text/css" href="{{asset('bundles/reservas/css/estilo.css')}}">
+    <!-- SCRIPTS -->
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+  	<footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <p class="center-align">
+        	    <strong>Reservas Restaurante-Escuela IES Gran Capitán</strong> por <a href="mailto:cuberolopez96@gmail.com">Juan Antonio Cubero López</a> y <a href="mailto:info@ismerium.com">Estela Muñoz Cordón</a>
+            </p>
+            <p class="center-align">
+        	    <a class="btn btn-floating pulse" href="https://github.com/cuberolopez96/reservasGC">
+          		  <i class="fa fa-github fa-5x"></i>
+        	    </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+          <div class="container center-align">
+            <p class="center-align"><a target="_blank" href="/privacidad"><strong>Política de Protección de Datos</strong></a></p>
+            <div class="espacio"></div>
+            Licencia <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+          </div>
+      </div>
+    </footer>
+  </body>
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/jquery-3.2.1.js')}}"></script>
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/materialize.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/jquery-form-validator/form-validator/jquery.form-validator.min.js')}}"></script>
+  <!-- NUESTRO CÓDIGO -->
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/codigo.js')}}"></script>
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/validar.js')}}"></script>
+  <script type="text/javascript" src="{{asset('bundles/reservas/js/index.js')}}"></script>
+</html>

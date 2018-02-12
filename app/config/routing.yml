@@ -1,0 +1,3 @@
+reservas:
+    resource: "@reservasBundle/Resources/config/routing.yml"
+    prefix:   /

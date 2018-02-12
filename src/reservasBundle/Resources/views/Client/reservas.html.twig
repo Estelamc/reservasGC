@@ -1,0 +1,281 @@
+{% extends 'reservasBundle::layout.html.twig' %}
+{% block content %}
+
+	<!-- NAV -->
+	 <nav>
+	    <div class="nav-wrapper">
+	      <a href="/" class="brand-logo left" alt="Logo Restaurante-Escuela IES Gran Capitán - Inicio"><img class="logo" src="{{asset('bundles/reservas/img/image948-e1447362808491.png')}}"></a>
+	    	<span class="letraNav">Restaurante-Escuela IES Gran Capitán</span>
+	    </div>
+	  </nav>
+
+	<!-- MAIN -->
+	<main class="valign-wrapper center-align">
+
+		<div class="row">
+			<div class="card col s10 l8 offset-s1 offset-l2">
+				<div id="ubicaciones" class="row">
+					<div class="col s4">
+						<h2  id="parte1" class="ubicacion">Datos de la Reserva</h2>
+					</div>
+
+					<div class="col s4">
+						<h2 id="parte2" >Confirmación de Reserva</h2>
+					</div>
+
+					<div class="col s4">
+						<h2 id="parte3" >Reserva Realizada</h2>
+					</div>
+				</div>
+
+				<div id="datos0" class="card-content">
+					<!-- CALENDARIO -->
+					<div class="row">
+						<div class="col s12">
+							<button id="diaAnterior"><i class="material-icons small">fast_rewind</i></button>
+							<span id="mesActual"></span>
+							<button id="diaSiguiente"><i class="material-icons small">fast_forward</i></button>
+						</div>
+						<table class="bordered centered highlight col s12">
+							<thead>
+								<tr>
+									<th>L</th>
+									<th>M</th>
+									<th>X</th>
+									<th>J</th>
+									<th>V</th>
+									<th>S</th>
+									<th>D</th>
+								</tr>
+							</thead>
+							<tbody id="calendar">
+
+							</tbody>
+						</table>
+
+						<p class="col s3"><span id="disp"></span>Plazas Disponibles</p>
+						<p class="col s3"><span id="pDisp"></span>Poca Disponibilidad</p>
+						<p class="col s3"><span id="ocup"></span>Completo</p>
+						<p class="col s3"><span id="servicioDuo"></span>Varios Servicios</p>
+
+					</div>
+					<div id="modal1" class="modal">
+						<div class="modal-content">
+				      <h4>Servicio Completo</h4>
+				      <p>¿Desea acceder a la <strong>LISTA DE ESPERA</strong>?</p>
+				    </div>
+				    <div class="modal-footer">
+							<button id="Si" class="modal-action  waves-effect waves-green btn-flat">Lista de Espera</button>
+				      <button id="No" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</button>
+				    </div>
+					</div>
+				</div>
+
+				<div id="datos1" class="">
+
+				</div>
+
+				<div id="datos2" class="card-content">
+					<!-- HORA Y PERSONAS -->
+						<div class="row">
+							<div class="input-field marginTop col s12 m8 offset-m2">
+    							<label class="comoH3 labelEst">Hora prevista de llegada</label>
+									<input class="inputEst" type="text" id="horallegada" name="" value="" placeholder="15:00">
+									<span id="errorhora" class="errores">Debe ser un formato hh:mm</span>
+							</div><!-- end field Hora -->
+
+							<div class="input-field col s12 m8 offset-m2">
+								<label class="comoH3 labelEst">Personas (Quedan <span id="disponibles"></span> plazas)</label>
+								<input class="inputEst" type="number" id="plazas" min="1" max="25" name="" value="">
+								<span id="errorpersonas" class="errores">Como mínimo será uno y como máximo las plazas del servicio</span>
+							</div><!-- end field plazas -->
+
+							<div class="input-field col s12 misBotones">
+								<div id="botones1" class="row">
+									<div class="col s12 m6"><button id="atras1" class="button especial2">Anterior</button></div>
+									<div class="col s12 m6"><button id="siguiente" class="button especial">Siguiente</button></div>
+								</div>
+							</div><!-- end field BOTONES -->
+						</div><!-- end ROW HORA Y PLAZAS -->
+
+				</div><!-- end DATOS 2 -->
+
+
+				<div  id="datos3" class="card-content">
+
+						<div class="row marginTop2">
+							<div class="input-field col s12 m6 l3">
+								<label class="labelEst" for="name">Nombre</label>
+								<input class="inputEst" data-validation="length alphanumeric" class="" id="name" data-tooltip="El nombre no es correcto" type="text" name="" required="required">
+								<span class="errores" id="errorname">Debe ser una cadena con 2 caracteres como mínimo</span>
+							</div>
+
+							<div class="input-field col s12 m6 l3">
+								<label class="labelEst" for="ap">Apellidos</label>
+								<input class="inputEst" data-validation="custom" class="" data-tooltip="El apellido no es correcto" data-validation-regexp="^([a-z]+)$" id="ap" type="text" name="" required="required">
+								<span class="errores" id="errorap">Debe ser una cadena con 2 caracteres como mínimo</span>
+							</div>
+
+							<div class="input-field col s12 m6 l3">
+								<label class="labelEst" for="tlfn" data-error="escriba un número de teléfono válido" data-success="correcto">Teléfono</label>
+								<input class="inputEst" data-validation="custom" class="" data-tooltip="El telefono no es correcto" data-validation-regexp="^([0-9]+)$" id="tlfn" type="text" name="">
+								<span class="errores" id="errortlfn">Debe ser un número de 9 dígitos</span>
+							</div>
+
+							<div class="input-field col s12 m6 l3">
+								<label class="labelEst" for="email">Correo</label>
+								<input class="inputEst" data-validation="email" class="" data-tooltip="el email no es correcto" id="email" type="text" name="">
+								<span class="errores" id="erroremail">Debe tener formato tucorreo@correo.algo</span>
+							</div>
+
+							<div id="check" class="input-field col s12">
+								<div class="row">
+									<div class="col s12">
+										<h3>Alérgenos</h3>
+									</div>
+
+									<div class="col alergEst">
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="gluten">
+											<label for="gluten">Gluten</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="huevos">
+											<label for="huevos">Huevos</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="pescado">
+											<label for="pescado">Pescado</label>
+										</p>
+									</div>
+
+									<div class="col">
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="cacahuetes">
+											<label for="cacahuetes">Cacahuetes</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="soja">
+											<label for="soja">Soja</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="lacteos">
+											<label for="lacteos">Lácteos</label>
+										</p>
+									</div>
+
+									<div class="col">
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="apio">
+											<label for="apio">Apio</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="mostaza">
+											<label for="mostaza">Mostaza</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="sesamo">
+											<label for="sesamo">Sésamo</label>
+										</p>
+									</div>
+
+									<div class="col">
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="sulfitos">
+											<label for="sulfitos">Sulfitos</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="moluscos">
+											<label for="moluscos">Moluscos</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="crustaceos">
+											<label for="crustaceos">Crustáceos</label>
+										</p>
+									</div>
+
+									<div class="col">
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="altramuces">
+											<label for="altramuces">Altramuces</label>
+										</p>
+										<p>
+											<input type="checkbox" class="filled-in" name="" id="frutos_secos">
+											<label for="frutos_secos">Frutos secos</label>
+										</p>
+									</div>
+
+
+								</div>
+							</div>
+
+							<div class="input-field col s12 l6 obs">
+								<label class="comoH3 labelEst" for="observaciones">Observaciones</label>
+								<textarea id="observaciones" class="materialize-textarea textareaEst">
+								</textarea>
+							</div>
+
+							<div class="input-field col s12 l6">
+								<p>
+									<input id="boletin" class="filled-in" type="checkbox" name="" checked>
+									<label for="boletin">¿Desea subscribirse a nuestro boletín informativo?</label>
+								</p>
+							</div>
+
+							<div class="input-field col s12 l6">
+								<p id="captcha">
+									<p>
+										<input id="robot" data-tooltip="pulsa aquí" class="filled-in " type="checkbox" name="">
+
+										<label for="robot">No soy un robot</label>
+									</p>
+									<br>
+									<span class="errores" id="errorrobot">Indique que no es un robot</span>
+								</p>
+							</div>
+							<div class="input-field col s12 misBotones">
+								<div id="botones1" class="row">
+									<div class="col s12 m6"><button id="atras2" class="button especial2">Anterior</button></div>
+									<div class="col s12 m6"><button id="reservar" class="button especial">Reservar</button>	</div>
+								</div>
+							</div>
+						</div>
+
+				</div> <!-- DATOS 3 - card content -->
+
+				<div id="confirmacion" class="card-content">
+						<div class="row">
+							<span class="card-title activator grey-text text-darken-4">Confirme si sus datos son correctos</span>
+									<h3>El pago se realizará en efectivo</h3>
+									<p class="marginBot"><strong>No se incluyen bebidas en el menú</strong></p>
+      						<div id="datosparaconfirmar" class="row">
+										<p class="col s2">dato 1</p>
+										<p class="col s2">dato 3</p>
+										<p class="col s2">dato 4</p>
+      						</div>
+
+						</div>
+						<div class="errores" id="erroradd"></div>
+						<div class="input-field col s12 misBotones">
+							<div id="botones1" class="row">
+								<div class="col s12 m6"><button id="atras3" class="button especial2">Anterior</button></div>
+								<div class="col s12 m6"><button id="confirmar" class="button especial">Confirmar</button>	</div>
+							</div>
+						</div>
+				</div> <!-- CONFIRMAR - card-content -->
+
+				<div id="realizado" class="card-content">
+						<div class="row">
+							<span class="card-title">¡Realizado!</span>
+							<p class="center-align">Acceda al pdf para descargar su información de reserva</p>
+
+							<p class="col s12 center-align"><button id="descargar" class="button especial separar">Descargar PDF</button>	</p>
+							<p class="col s12 center-align"><button id="salir" class="button especial2 separar">Salir</button></p>
+						</div>
+				</div> <!-- REALIZADO - card-content -->
+			</div> <!-- CARD -->
+
+		</div> <!-- FILA -->
+	</main>
+
+{% endblock %}

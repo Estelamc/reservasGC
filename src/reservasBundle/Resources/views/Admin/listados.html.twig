@@ -1,0 +1,41 @@
+{% extends 'reservasBundle:Admin:layout.html.twig' %}
+{% block content %}
+<main class="valign-wrapper center-align paddingTop2">
+  <div class="row">
+    <header class="col s12">
+        <h1 class="center-align">Lista Negra <a href="/admin/listanegra/add"><i class="material-icons">library_add</i></a></h1>
+    </header>
+
+<div class="col s12 ">
+  <div class="card">
+    <div class="card-content sinPadding">
+          <card-title class="row">
+            <h2 class="col s12 center-align titularCard sinMargin conPadding"> Correos </h2>
+          </card-title>
+
+          <table class="bordered ">
+              
+              <tbody>
+
+                  {% for correo in listanegra %}
+                    <tr>
+                      <td>{{correo.correo}}</td>
+                      <td><a href="/admin/listanegra/delete/{{correo.idlistanegra}}" class="material-icons">delete</a></td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+
+
+
+      </div>
+
+    </div>
+</div>
+
+
+
+
+    </div>
+</main>
+{% endblock %}

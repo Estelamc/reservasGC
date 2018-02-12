@@ -1,0 +1,103 @@
+{% extends 'reservasBundle:Admin:layout.html.twig' %}
+{% block content %}
+<main class="valign-wrapper paddingTop2">
+<div class="row">
+  <h1 class="col s12 center-align">Reservas <a href="/admin/servicios"><i class="material-icons btn-floating">close</i></a></h1>
+
+  <div class="row center-align">
+    {% if servicio.menumenu !=false and servicio.menumenu != null %}
+    {% set menu = servicio.menumenu %}
+    <div class="col s12 l6 paddingTop1"><a href="/admin/menu/{{menu.idmenu}}" class="button especial grande">Ver Menu</a></div>
+    {% endif %}
+    {% set diferencia = date((servicio.fechaservicio | date('d-m-Y'))).diff(date(("now" | date('d-m-Y')))) %}
+
+    {% if diferencia.days == 1 %}
+        <div class="col s12 l6 paddingTop1"><a href="/admin/servicios/recordatorios/{{servicio.idservicios}}"class="button especial grande">Recordatorios</a></div>
+    {% endif %}
+  </div>
+
+<!--<div class="col s12">
+  <div class="row">-->
+
+  {% if reservas|length == 0 or reservas == false %}
+  <div class="card col s12">
+    <div class="card-content paddingTop1">
+        <span  class="card-title center-align">Aún no se han realizado reservas para este servicio</span>
+    </div>
+  </div>
+  {% endif %}
+
+  {% for reserva in reservas %}
+
+    <div class="contenedorR col s12 m6">
+      <div class="card">
+
+        <div class="card-content sinPadding">
+          <div class="card-title titularCard conPadding">
+            <span><strong>Reserva de {{reserva.nombre}} {{reserva.apellidos}}</strong></span>
+          </div>
+          <div class="row conPadding">
+            <p class="col s12 l6"><strong>Fecha Servicio:</strong>{{reserva.serviciosservicios.fechaservicio | date('d-m-Y')}}</p>
+            <p class="col s12 l6"><strong>Hora llegada: </strong> {{reserva.horallegada | date('H:i')}}</p>
+            <p class="col s12 l6"><strong>Correo: </strong>
+              {% set bandera = false %}
+              {% for lcorreo in blacklist %}
+                  {% if lcorreo.correo == reserva.correo %}
+                      {% set bandera  = true %}
+                  {% endif %}
+              {% endfor %}
+              {% if bandera == true %}
+              <span class="red-text">{{reserva.correo}}</span>
+              {% else %}
+                  {{reserva.correo}}
+              {% endif %}
+            </p>
+            <p class="col s12 l6"><strong>Telefono: </strong>{{reserva.telefono}}</p>
+            <p class="col s12 l6"><strong>Observaciones: </strong>{{reserva.observaciones}}</p>
+            <p class="col s12 l6"><strong>Alergenos :</strong>
+              {% set ralergenos = [] %}
+              {% for alergeno in alergenos %}
+              {% if alergeno.reservasreservas.idreservas == reserva.idreservas %}
+                {% set ralergenos = ralergenos|merge([alergeno.alergenosalergenos.nombre])%}
+              {% endif %}
+              {% endfor %}
+              {{ralergenos | join(',')}}
+            </p>
+            <p class="col s12 l6"><strong>Estado de la Reserva:</strong> {{reserva.estadoreservaestadoreserva.nombre}}</p>
+          </div>
+
+        </div>
+        <div class="card-action center-align">
+          <div class="row">
+            <a class="button especial2 minus col s12 l2 offset-l1" href="/admin/reservas/delete/{{reserva.idreservas}}">Cancelar</a>
+            <a class="button especial minus col s12 l2" href="/admin/reservas/editar/{{reserva.idreservas}}">Editar</a>
+            {% set aviso = false %}
+            {% if reserva.estadoreservaestadoreserva.idestadoreserva == 1 %}
+              <a href="/admin/reservas/resend/{{reserva.idreservas}}" class="button especial2 minus col s12 l2">Reenviar</a>
+              {% if (servicio.plazas - servicio.plazasocupadas) > reserva.npersonas %}
+                <a href="/admin/reservas/confirmar/{{reserva.idreservas}}" class="button especial minus col s12 l2">Confirmar</a>
+                {% else %}
+                  {% set aviso = true %}
+              {% endif %}
+
+            {% endif %}
+            {% if date(servicio.fechaservicio) < date("now")  and bandera == false %}
+              <a href="/admin/reservas/listanegra/add/{{reserva.idreservas}}" class="button especial minus col s12 l3 marginTop offset-l4">Lista Negra</a>
+            {% endif %}
+          </div>
+          <div class="">
+            {% if aviso == true %}
+                <span class="errores" style="display:block">Para confirmar esta reservas por favor aumente las plazas en {{(reserva.npersonas - (servicio.plazas - servicio.plazasocupadas))}}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {% endfor %}
+<!--</div>
+</div>-->
+
+</div>
+</main>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'reservasBundle:Admin:layout.html.twig' %}
+{% block content %}
+<main class="valign-wrapper paddingTop2">
+  <div class="row">
+
+      <header class="col s12">
+          <h1 class="center-align">Servicios <a href="/admin/servicios/add"><i class="material-icons">library_add</i></a></h1>
+          {% if app.request.get("_route")=="reservas_admin_servicios" %}
+            <a href="/admin/servicios/anteriores" class="button especial">Ver anteriores</a>
+          {% endif %}
+
+          {% if app.request.get("_route")=="reservas_admin_servicios_anteriores" %}
+            <a href="/admin/servicios" class="button especial">Ver Actuales</a>
+            <a href="/admin/servicios/anteriores/limpiar" class="button especial">Eliminar Todos</a>
+          {% endif %}
+      </header>
+
+
+
+      <div id="modal1" class="modal">
+          <div class="modal-content">
+              <h3>¿Desea eliminar este servicio?</h3>
+              <p>Se anularán todas las reservas asignadas a este servicio. Téngalo en cuenta.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat">Cancelar</a>
+            <a href="#!" id="delete" class="modal-action waves-effect btn-flat">Borrar</a>
+          </div>
+      </div>
+      <div class="col s12">
+          <div class="card">
+            <div class="card-content sinPadding">
+              <div class="row">
+                <table id="listadoServicios" class="bordered col s12 centered  highlight ">
+                    <thead id="titularTabla">
+                      <tr class="columnasServ">
+                        <th>Nombre</th>
+                        <th>Fecha Servicio</th>
+                        <th>Plazas Máximas</th>
+                        <th>Plazas Disponibles</th>
+                        <th>Plazas en Espera</th>
+                        <th>Estado del Servicio</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+
+                    </thead>
+                    <tbody>
+                      <tr class="columnasServ">
+                        <td><input type="text" class="filtro center-align" name="" id="inputNombre" value=""></td>
+                        <td><input type="text" class ="filtro center-align" id="inputFechaServicio"name="" value=""></td>
+                        <td><input type="text" class="filtro center-align" id="inputPlazas" name="" value=""></td>
+                        <td><input type="text" class="filtro center-align" id="inputPlazasDisponibles" name="" value=""></td>
+                        <td><input type="text" name=""class="filtro center-align"id="inputPlazasEspera" value=""></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                        {% for index,servicio in servicios %}
+                            {% set porcentage = (servicio.plazas * 0.8) %}
+                            <tr class="columnasServ">
+                                <td class="rowNombre">{{servicio.nombre}}</td>
+                                <td class="rowFechaServicio">{{servicio.fechaservicio | date('d-m-Y H:i:s')}}</td>
+                                <td class="rowPlazas">{{servicio.plazas}}</td>
+                                <td class="rowPlazasDisponibles">{{servicio.plazasdisponibles}}</td>
+                                <td>
+                                {% set plazasespera = 0 %}
+                                {% for reserva in reservas %}
+                                    {% if reserva.serviciosservicios.idservicios == servicio.idservicios and reserva.estadoreservaestadoreserva.idestadoreserva == 1 %}
+                                      {% set plazasespera = (plazasespera + reserva.npersonas)  %}
+
+                                  {% endif %}
+                                {% endfor %}
+                                {{plazasespera}}
+                              </td>
+                                {% if porcentage < servicio.plazasocupadas and servicio.plazasocupadas < servicio.plazas %}
+                                  <td><i class="material-icons colorPocoDisp2 iconosServ">fiber_manual_record</i></td>
+                                {% elseif servicio.plazasocupadas >= servicio.plazas %}
+                                  <td><i class="material-icons colorOcupado2 iconosServ">fiber_manual_record</i></td>
+                                {% else %}
+                                    <td><i class="material-icons colorDisponible2 iconosServ">fiber_manual_record</i></td>
+                                {% endif %}
+
+                                <td><a href="/admin/servicios/editar/{{servicio.idservicios}}"><i class="material-icons iconosServ">edit</i></a></td>
+                                <td><a class="modaldelete" href="#" servicio="{{servicio.idservicios}}"><i class="material-icons iconosServ">delete</i></a></td>
+                                <td><a href="/admin/servicios/{{servicio.idservicios}}/reservas"><i class="material-icons iconosServ">assignment</i></a></td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+
+  </div>
+</main>
+{% endblock %}
